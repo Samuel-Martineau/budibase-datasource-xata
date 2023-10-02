@@ -1,0 +1,48 @@
+{
+  "type": "datasource",
+  "metadata": {},
+  "schema": {
+    "docs": "https://docs.xata.io",
+    "friendlyName": "Xata",
+    "type": "Relational",
+    "description": "Xata client plugin for Budibase",
+    "plus": true,
+    "isSQL": true,
+    "features": {
+      "connection": true,
+      "fetch_table_names": true,
+      "export_schema": true
+    },
+    "datasource": {
+      "databaseUrl": {
+        "type": "string",
+        "display": "Database URL",
+        "required": true
+      },
+      "branch": {
+        "type": "string",
+        "display": "Branch",
+        "required": true
+      },
+      "apiKey": {
+        "type": "password",
+        "display": "API Key",
+        "required": true
+      }
+    },
+    "query": {
+      "create": {
+        "type": "sql"
+      },
+      "read": {
+        "type": "sql"
+      },
+      "update": {
+        "type": "sql"
+      },
+      "delete": {
+        "type": "sql"
+      }
+    }
+  }
+}

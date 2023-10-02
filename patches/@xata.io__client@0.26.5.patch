@@ -1,0 +1,22 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 33d4261f7bc971d9faeb2e154e2253d6cc66b65d..7f6d6fdc97e447cca643a547f276e6ecc7d7ad92 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -7244,7 +7244,7 @@ declare class XataFile {
+ type XataArrayFile = Identifiable & XataFile;
+ 
+ type SelectableColumn<O, RecursivePath extends any[] = []> = '*' | 'id' | `xata.${'version' | 'createdAt' | 'updatedAt'}` | DataProps<O> | NestedColumns<O, RecursivePath>;
+-type ExpandedColumnNotation = {
++export type ExpandedColumnNotation = {
+     name: string;
+     columns?: SelectableColumn<any>[];
+     as?: string;
+@@ -7911,7 +7911,7 @@ type AskResult = {
+     sessionId?: string;
+ };
+ 
+-type SortDirection = 'asc' | 'desc';
++export type SortDirection = 'asc' | 'desc';
+ type RandomFilter = {
+     '*': 'random';
+ };

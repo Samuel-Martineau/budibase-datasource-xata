@@ -1,0 +1,13 @@
+diff --git a/lib/nano.js b/lib/nano.js
+index 0c2f5386edbb9859a63b8373bc633769b9b8f452..babb84160c98199d1709da53a2ff4ede130b98e5 100644
+--- a/lib/nano.js
++++ b/lib/nano.js
+@@ -14,7 +14,7 @@ const { HttpsCookieAgent, HttpCookieAgent } = require('http-cookie-agent/http')
+ const { URL } = require('url')
+ const assert = require('assert')
+ const querystring = require('qs')
+-const axios = require('../node_modules/axios/dist/node/axios.cjs')
++const axios = require('axios')
+ const { CookieJar } = require('tough-cookie')
+ const cookieJar = new CookieJar()
+ const stream = require('stream')
