@@ -673,7 +673,7 @@
 // Public License instead of this License.  But first, please read
 // <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
-import { FieldType, SEPARATOR, Table } from "@budibase/types";
+import { ExternalTable, FieldType, SEPARATOR, Table } from "@budibase/types";
 
 const DOUBLE_SEPARATOR = `${SEPARATOR}${SEPARATOR}`;
 enum InvalidColumns {
@@ -696,42 +696,23 @@ export function buildExternalTableId(datasourceId: string, tableName: string) {
 
 /**
  * Look through the final table definitions to see if anything needs to be
- * copied over from the old and if any errors have occurred mark them so
- * that the user can be made aware.
+ * copied over from the old.
  * @param tables The list of tables that have been retrieved from the external database.
  * @param entities The old list of tables, if there was any to look for definitions in.
  */
 export function finaliseExternalTables(
-  tables: { [key: string]: any },
-  entities: { [key: string]: any }
-) {
-  const invalidColumns = Object.values(InvalidColumns);
-  let finalTables: { [key: string]: any } = {};
-  const errors: { [key: string]: string } = {};
-  // @ts-ignore
-  const tableIds: [string] = Object.values(tables).map((table) => table._id);
+  tables: Record<string, ExternalTable>,
+  entities: Record<string, ExternalTable>
+): Record<string, ExternalTable> {
+  let finalTables: Record<string, Table> = {}
+  const tableIds = Object.values(tables).map(table => table._id!)
   for (let [name, table] of Object.entries(tables)) {
-    const schemaFields = Object.keys(table.schema);
-    // make sure every table has a key
-    if (table.primary == null || table.primary.length === 0) {
-      errors[name] = BuildSchemaErrors.NO_KEY;
-      continue;
-    } else if (
-      schemaFields.find((field) =>
-        invalidColumns.includes(field as InvalidColumns)
-      )
-    ) {
-      errors[name] = BuildSchemaErrors.INVALID_COLUMN;
-      continue;
-    }
-    // make sure all previous props have been added back
-    finalTables[name] = copyExistingPropsOver(name, table, entities, tableIds);
+    finalTables[name] = copyExistingPropsOver(name, table, entities, tableIds)
   }
-  // sort the tables by name
-  finalTables = Object.entries(finalTables)
+  // sort the tables by name, this is for the UI to display them in alphabetical order
+  return Object.entries(finalTables)
     .sort(([a], [b]) => a.localeCompare(b))
-    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-  return { tables: finalTables, errors };
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 }
 
 /**
@@ -745,31 +726,31 @@ export function finaliseExternalTables(
 function copyExistingPropsOver(
   tableName: string,
   table: Table,
-  entities: { [key: string]: any },
-  tableIds: [string]
-) {
+  entities: Record<string, Table>,
+  tableIds: string[]
+): Table {
   if (entities && entities[tableName]) {
     if (entities[tableName]?.primaryDisplay) {
-      table.primaryDisplay = entities[tableName].primaryDisplay;
+      table.primaryDisplay = entities[tableName]!.primaryDisplay
     }
     if (entities[tableName]?.created) {
-      table.created = entities[tableName]?.created;
+      table.created = entities[tableName]?.created
     }
-    const existingTableSchema = entities[tableName].schema;
+    const existingTableSchema = entities[tableName]!.schema
     for (let key in existingTableSchema) {
       if (!existingTableSchema.hasOwnProperty(key)) {
-        continue;
+        continue
       }
-      const column = existingTableSchema[key];
+      const column = existingTableSchema[key]!
       if (
         shouldCopyRelationship(column, tableIds) ||
         shouldCopySpecialColumn(column, table.schema[key])
       ) {
-        table.schema[key] = existingTableSchema[key];
+        table.schema[key] = existingTableSchema[key]!
       }
     }
   }
-  return table;
+  return table
 }
 
 /**
@@ -790,7 +771,7 @@ export function shouldCopyRelationship(
     column.type === FieldType.LINK &&
     column.tableId &&
     tableIds.includes(column.tableId)
-  );
+  )
 }
 
 /**
@@ -805,21 +786,40 @@ export function shouldCopySpecialColumn(
   column: { type: string },
   fetchedColumn: { type: string } | undefined
 ) {
-  const isFormula = column.type === FieldType.FORMULA;
+  const isFormula = column.type === FieldType.FORMULA
   const specialTypes = [
     FieldType.OPTIONS,
     FieldType.LONGFORM,
     FieldType.ARRAY,
     FieldType.FORMULA,
-  ];
+    FieldType.BB_REFERENCE,
+  ]
   // column has been deleted, remove - formulas will never exist, always copy
   if (!isFormula && column && !fetchedColumn) {
-    return false;
+    return false
   }
   const fetchedIsNumber =
-    !fetchedColumn || fetchedColumn.type === FieldType.NUMBER;
+    !fetchedColumn || fetchedColumn.type === FieldType.NUMBER
   return (
     specialTypes.indexOf(column.type as FieldType) !== -1 ||
     (fetchedIsNumber && column.type === FieldType.BOOLEAN)
-  );
+  )
+}
+
+export function checkExternalTables(
+  tables: Record<string, ExternalTable>
+): Record<string, string> {
+  const invalidColumns = Object.values(InvalidColumns) as string[]
+  const errors: Record<string, string> = {}
+  for (let [name, table] of Object.entries(tables)) {
+    if (!table.primary || table.primary.length === 0) {
+      errors[name] = "Table must have a primary key."
+    }
+
+    const schemaFields = Object.keys(table.schema)
+    if (schemaFields.find(f => invalidColumns.includes(f))) {
+      errors[name] = "Table contains invalid columns."
+    }
+  }
+  return errors
 }

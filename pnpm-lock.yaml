@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@budibase/backend-core>@budibase/types': ^2.0.13
-  '@budibase/backend-core>@budibase/shared-core': ^2.10.12
-
 patchedDependencies:
   '@budibase/nano@10.1.2':
     hash: fglyxghcftis6nscvui3hdroxq
@@ -18,8 +14,8 @@ patchedDependencies:
 
 dependencies:
   '@budibase/types':
-    specifier: ^2.0.13
-    version: 2.10.12
+    specifier: ^2.11.45
+    version: 2.11.45
   '@xata.io/client':
     specifier: ^0.26.5
     version: 0.26.5(patch_hash=didorvz2azdgb2jipi5i6vlw6u)(typescript@5.2.2)
@@ -47,8 +43,8 @@ dependencies:
 
 devDependencies:
   '@budibase/backend-core':
-    specifier: file:./submodules/budibase/packages/backend-core
-    version: file:submodules/budibase/packages/backend-core(undici@5.25.2)
+    specifier: ^2.11.45
+    version: 2.11.45(undici@5.25.2)
   '@types/lodash':
     specifier: ^4.14.199
     version: 4.14.199
@@ -87,7 +83,7 @@ devDependencies:
     version: 5.2.2
   xo:
     specifier: ^0.56.0
-    version: 0.56.0(webpack@5.88.2)
+    version: 0.56.0(webpack@5.89.0)
 
 packages:
 
@@ -125,6 +121,50 @@ packages:
       regenerator-runtime: 0.14.0
     dev: true
 
+  /@budibase/backend-core@2.11.45(undici@5.25.2):
+    resolution: {integrity: sha512-/HnYP5RYOqoA6ZCQEwuqC2eSibzIfolC70tQZFG3h+/tnQvYdRa6GUvYKtt7zmAYO+41NHEEVaCXOJTLNFofrA==}
+    dependencies:
+      '@budibase/nano': 10.1.2(patch_hash=fglyxghcftis6nscvui3hdroxq)(undici@5.25.2)
+      '@budibase/pouchdb-replication-stream': 1.2.10
+      '@budibase/shared-core': 2.11.45
+      '@budibase/types': 2.11.45
+      '@techpass/passport-openidconnect': 0.3.2
+      aws-cloudfront-sign: 3.0.2
+      aws-sdk: 2.1030.0
+      bcrypt: 5.1.0
+      bcryptjs: 2.4.3
+      bull: 4.10.1
+      correlation-id: 4.0.0
+      dotenv: 16.0.1
+      ioredis: 5.3.2
+      joi: 17.6.0
+      jsonwebtoken: 9.0.2
+      koa-passport: 4.1.4
+      koa-pino-logger: 4.0.0
+      lodash: 4.17.21
+      node-fetch: 2.6.7
+      passport-google-oauth: 2.0.0
+      passport-local: 1.0.0
+      passport-oauth2-refresh: 2.2.0
+      pino: 8.11.0
+      pino-http: 8.3.3
+      posthog-node: 1.3.0
+      pouchdb: 7.3.0
+      pouchdb-find: 7.2.2
+      redlock: 4.2.0
+      rotating-file-stream: 3.1.0
+      sanitize-s3-objectkey: 0.0.1
+      semver: 7.3.7
+      tar-fs: 2.1.1
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - deasync
+      - debug
+      - encoding
+      - supports-color
+      - undici
+    dev: true
+
   /@budibase/nano@10.1.2(patch_hash=fglyxghcftis6nscvui3hdroxq)(undici@5.25.2):
     resolution: {integrity: sha512-1w+YN2n/M5aZ9hBKCP4NEjdQbT8BfCLRizkdvm0Je665eEHw3aE1hvo8mon9Ro9QuDdxj1DfDMMFnym6/QUwpQ==}
     engines: {node: '>=14'}
@@ -155,14 +195,14 @@ packages:
       through2: 2.0.5
     dev: true
 
-  /@budibase/shared-core@2.10.12:
-    resolution: {integrity: sha512-7RDaBJH9zAnk68Q052ahIcCHwsLR0ShQcae21ynVzAcs/jhHS9fjf9kmFAwGD4SDU0Dk7xGvp13dz2PK68GsBA==}
+  /@budibase/shared-core@2.11.45:
+    resolution: {integrity: sha512-5xBTJhx2PZPgEXaSRI63DD29rq/WbQsoRLSZcE1QOhIwNEW6O8L9x2fxlJV24kH/5ik131cSHr0+Ld4zDI1SCg==}
     dependencies:
-      '@budibase/types': 2.10.12
+      '@budibase/types': 2.11.45
     dev: true
 
-  /@budibase/types@2.10.12:
-    resolution: {integrity: sha512-zto2rrBmSphJQecDFhfgOISyjyGxpF5gK3/pffBmoCCb3NwiY6xD0z1EYHsBRZlJXr49e1PPZ8Mr8oqsyUk7wQ==}
+  /@budibase/types@2.11.45:
+    resolution: {integrity: sha512-xEatBtloPcz/MWy34WA1rlnOX8VQt0yQCBOHouNyJ4S7dVshW3FrMzmIksHTvHQpBrJ9VLE68ksLKGjZSb4EJg==}
     dependencies:
       scim-patch: 0.7.1
 
@@ -652,7 +692,7 @@ packages:
     dependencies:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.19
+      '@jridgewell/trace-mapping': 0.3.20
     dev: true
 
   /@jridgewell/resolve-uri@3.1.1:
@@ -669,15 +709,15 @@ packages:
     resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.19
+      '@jridgewell/trace-mapping': 0.3.20
     dev: true
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
     dev: true
 
-  /@jridgewell/trace-mapping@0.3.19:
-    resolution: {integrity: sha512-kf37QtfW+Hwx/buWGMPcR60iF9ziHa6r/CZJIHbmcm4+0qrXiVdxegAH0F6yddEVQ7zdkjcGCgCzUu+BcbhQxw==}
+  /@jridgewell/trace-mapping@0.3.20:
+    resolution: {integrity: sha512-R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==}
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -807,11 +847,11 @@ packages:
       webfinger: 0.4.2
     dev: true
 
-  /@types/eslint-scope@3.7.5:
-    resolution: {integrity: sha512-JNvhIEyxVW6EoMIFIvj93ZOywYFatlpu9deeH6eSx6PE3WHYvHaQtmHmQeNw7aA81bYGBPPQqdtBm6b1SsQMmA==}
+  /@types/eslint-scope@3.7.6:
+    resolution: {integrity: sha512-zfM4ipmxVKWdxtDaJ3MP3pBurDXOCoyjvlpE3u6Qzrmw4BPbfm4/ambIeTk/r/J0iq/+2/xp0Fmt+gFvXJY2PQ==}
     dependencies:
-      '@types/eslint': 8.44.3
-      '@types/estree': 1.0.2
+      '@types/eslint': 8.44.6
+      '@types/estree': 1.0.3
     dev: true
 
   /@types/eslint@8.44.3:
@@ -821,12 +861,27 @@ packages:
       '@types/json-schema': 7.0.13
     dev: true
 
+  /@types/eslint@8.44.6:
+    resolution: {integrity: sha512-P6bY56TVmX8y9J87jHNgQh43h6VVU+6H7oN7hgvivV81K2XY8qJZ5vqPy/HdUoVIelii2kChYVzQanlswPWVFw==}
+    dependencies:
+      '@types/estree': 1.0.3
+      '@types/json-schema': 7.0.14
+    dev: true
+
   /@types/estree@1.0.2:
     resolution: {integrity: sha512-VeiPZ9MMwXjO32/Xu7+OwflfmeoRwkE/qzndw42gGtgJwZopBnzy2gD//NN1+go1mADzkDcqf/KnFRSjTJ8xJA==}
     dev: true
 
+  /@types/estree@1.0.3:
+    resolution: {integrity: sha512-CS2rOaoQ/eAgAfcTfq6amKG7bsN+EMcgGY4FAFQdvSj2y1ixvOZTUA9mOtCai7E1SYu283XNw7urKK30nP3wkQ==}
+    dev: true
+
   /@types/json-schema@7.0.13:
     resolution: {integrity: sha512-RbSSoHliUbnXj3ny0CNFOoxrIDV6SUGyStHsvDqosw6CkdPV8TtWGlfecuK4ToyMEAql6pzNxgCFKanovUzlgQ==}
+    dev: true
+
+  /@types/json-schema@7.0.14:
+    resolution: {integrity: sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==}
     dev: true
 
   /@types/json5@0.0.29:
@@ -843,6 +898,12 @@ packages:
 
   /@types/node@20.6.3:
     resolution: {integrity: sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==}
+
+  /@types/node@20.8.9:
+    resolution: {integrity: sha512-UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
 
   /@types/normalize-package-data@2.4.2:
     resolution: {integrity: sha512-lqa4UEhhv/2sjjIQgjX8B+RBjj47eo0mzGasklVJ78UKGQY1r0VpB9XHDaZZO9qzEFDdy4MrXLuEaSmPrPSe/A==}
@@ -1158,12 +1219,12 @@ packages:
       xtend: 4.0.2
     dev: true
 
-  /acorn-import-assertions@1.9.0(acorn@8.10.0):
+  /acorn-import-assertions@1.9.0(acorn@8.11.2):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
     peerDependencies:
       acorn: ^8
     dependencies:
-      acorn: 8.10.0
+      acorn: 8.11.2
     dev: true
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
@@ -1181,6 +1242,12 @@ packages:
 
   /acorn@8.10.0:
     resolution: {integrity: sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
+  /acorn@8.11.2:
+    resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -1455,10 +1522,9 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /aws-cloudfront-sign@2.2.0:
-    resolution: {integrity: sha512-qG+rwZMP3KRTPPbVmWY8DlrT56AkA4iVOeo23vkdK2EXeW/brJFN2haSNKzVz+oYhFMEIzVVloeAcrEzuRkuVQ==}
-    dependencies:
-      lodash: 3.10.1
+  /aws-cloudfront-sign@3.0.2:
+    resolution: {integrity: sha512-Z/yOGZ3Hd1rhYbY13mtRiLCbCDC1Xf/v+dQUyUwMLnyunD/nfDZd/2LMZ9MKxxOhVb2RzEmEwY0F9f+riPaSWQ==}
+    engines: {node: '>=18'}
     dev: true
 
   /aws-sdk@2.1030.0:
@@ -1596,8 +1662,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001541
-      electron-to-chromium: 1.4.536
+      caniuse-lite: 1.0.30001555
+      electron-to-chromium: 1.4.569
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -1693,8 +1759,8 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  /caniuse-lite@1.0.30001541:
-    resolution: {integrity: sha512-bLOsqxDgTqUBkzxbNlSBt8annkDpQB9NdzdTbO2ooJ+eC/IQcvDspDc058g84ejCelF7vHUx57KIOjEecOHXaw==}
+  /caniuse-lite@1.0.30001555:
+    resolution: {integrity: sha512-NzbUFKUnJ3DTcq6YyZB6+qqhfD112uR3uoEnkmfzm2wVzUNsFkU7AwBjKQ654Sp5cau0JxhFyRSn/tQZ+XfygA==}
     dev: true
 
   /caseless@0.12.0:
@@ -2162,8 +2228,8 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /electron-to-chromium@1.4.536:
-    resolution: {integrity: sha512-L4VgC/76m6y8WVCgnw5kJy/xs7hXrViCFdNKVG8Y7B2isfwrFryFyJzumh3ugxhd/oB1uEaEEvRdmeLrnd7OFA==}
+  /electron-to-chromium@1.4.569:
+    resolution: {integrity: sha512-LsrJjZ0IbVy12ApW3gpYpcmHS3iRxH4bkKOW98y1/D+3cvDUWGcbzbsFinfUS8knpcZk/PG/2p/RnkMCYN7PVg==}
     dev: true
 
   /emittery@1.0.1:
@@ -2463,7 +2529,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-import-resolver-webpack@0.13.7(eslint-plugin-import@2.27.5)(webpack@5.88.2):
+  /eslint-import-resolver-webpack@0.13.7(eslint-plugin-import@2.27.5)(webpack@5.89.0):
     resolution: {integrity: sha512-2a+meyMeABBRO4K53Oj1ygkmt5lhQS79Lmx2f684Qnv6gjvD4RLOM5jfPGTXwQ0A2K03WSoKt3HRQu/uBgxF7w==}
     engines: {node: '>= 6'}
     peerDependencies:
@@ -2482,7 +2548,7 @@ packages:
       lodash: 4.17.21
       resolve: 2.0.0-next.4
       semver: 5.7.2
-      webpack: 5.88.2(esbuild@0.19.3)
+      webpack: 5.89.0(esbuild@0.19.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2512,7 +2578,7 @@ packages:
       debug: 3.2.7(supports-color@5.5.0)
       eslint: 8.50.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-webpack: 0.13.7(eslint-plugin-import@2.27.5)(webpack@5.88.2)
+      eslint-import-resolver-webpack: 0.13.7(eslint-plugin-import@2.27.5)(webpack@5.89.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3771,7 +3837,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.8.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -3870,12 +3936,18 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /jsonwebtoken@9.0.0:
-    resolution: {integrity: sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw==}
+  /jsonwebtoken@9.0.2:
+    resolution: {integrity: sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==}
     engines: {node: '>=12', npm: '>=6'}
     dependencies:
       jws: 3.2.2
-      lodash: 4.17.21
+      lodash.includes: 4.3.0
+      lodash.isboolean: 3.0.3
+      lodash.isinteger: 4.0.4
+      lodash.isnumber: 3.0.3
+      lodash.isplainobject: 4.0.6
+      lodash.isstring: 4.0.1
+      lodash.once: 4.1.1
       ms: 2.1.3
       semver: 7.5.4
     dev: true
@@ -4084,20 +4156,44 @@ packages:
     resolution: {integrity: sha512-C5N2Z3DgnnKr0LOpv/hKCgKdb7ZZwafIrsesve6lmzvZIRZRGaZ/l6Q8+2W7NaT+ZwO3fFlSCzCzrDCFdJfZ4g==}
     dev: true
 
+  /lodash.includes@4.3.0:
+    resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
+    dev: true
+
   /lodash.isarguments@3.1.0:
     resolution: {integrity: sha512-chi4NHZlZqZD18a0imDHnZPrDeBbTtVN7GXMwuGdRH9qotxAjYs3aVLKc7zNOG9eddR5Ksd8rvFEBc9SsggPpg==}
+    dev: true
+
+  /lodash.isboolean@3.0.3:
+    resolution: {integrity: sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==}
+    dev: true
+
+  /lodash.isinteger@4.0.4:
+    resolution: {integrity: sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==}
+    dev: true
+
+  /lodash.isnumber@3.0.3:
+    resolution: {integrity: sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw==}
+    dev: true
+
+  /lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
+    dev: true
+
+  /lodash.isstring@4.0.1:
+    resolution: {integrity: sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw==}
     dev: true
 
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
 
-  /lodash.pick@4.4.0:
-    resolution: {integrity: sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==}
+  /lodash.once@4.1.1:
+    resolution: {integrity: sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==}
     dev: true
 
-  /lodash@3.10.1:
-    resolution: {integrity: sha512-9mDDwqVIma6OZX79ZlDACZl8sBm0TEnkf99zV3iMA4GzkIT/9hiqP5mY0HoT1iNLCrKc/R1HByV+yJfRWVJryQ==}
+  /lodash.pick@4.4.0:
+    resolution: {integrity: sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==}
     dev: true
 
   /lodash@4.17.21:
@@ -5471,7 +5567,7 @@ packages:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/json-schema': 7.0.13
+      '@types/json-schema': 7.0.14
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
     dev: true
@@ -5911,7 +6007,7 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /terser-webpack-plugin@5.3.9(esbuild@0.19.3)(webpack@5.88.2):
+  /terser-webpack-plugin@5.3.9(esbuild@0.19.3)(webpack@5.89.0):
     resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -5927,22 +6023,22 @@ packages:
       uglify-js:
         optional: true
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.19
+      '@jridgewell/trace-mapping': 0.3.20
       esbuild: 0.19.3
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
-      terser: 5.20.0
-      webpack: 5.88.2(esbuild@0.19.3)
+      terser: 5.22.0
+      webpack: 5.89.0(esbuild@0.19.3)
     dev: true
 
-  /terser@5.20.0:
-    resolution: {integrity: sha512-e56ETryaQDyebBwJIWYB2TT6f2EZ0fL0sW/JRXNMN26zZdKi2u/E/5my5lG6jNxym6qsrVXfFRmOdV42zlAgLQ==}
+  /terser@5.22.0:
+    resolution: {integrity: sha512-hHZVLgRA2z4NWcN6aS5rQDc+7Dcy58HOf2zbYwmFcQ+ua3h6eEFf5lIDKTzbWwlazPyOZsFQO8V80/IjVNExEw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
       '@jridgewell/source-map': 0.3.5
-      acorn: 8.10.0
+      acorn: 8.11.2
       commander: 2.20.3
       source-map-support: 0.5.21
     dev: true
@@ -6190,6 +6286,10 @@ packages:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
 
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
+
   /undici@5.25.2:
     resolution: {integrity: sha512-tch8RbCfn1UUH1PeVCXva4V8gDpGAud/w0WubD6sHC46vYQ3KDxL+xv1A2UxK0N6jrVedutuPHxe1XIoqerwMw==}
     engines: {node: '>=14.0'}
@@ -6321,8 +6421,8 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: true
 
-  /webpack@5.88.2(esbuild@0.19.3):
-    resolution: {integrity: sha512-JmcgNZ1iKj+aiR0OvTYtWQqJwq37Pf683dY9bVORwVbUrDhLhdn/PlO2sHsFHPkj7sHNQF3JwaAkp49V+Sq1tQ==}
+  /webpack@5.89.0(esbuild@0.19.3):
+    resolution: {integrity: sha512-qyfIC10pOr70V+jkmud8tMfajraGCZMBWJtrmuBymQKCrLTRejBI8STDp1MCyZu/QTdZSeacCQYpYNQVOzX5kw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -6331,13 +6431,13 @@ packages:
       webpack-cli:
         optional: true
     dependencies:
-      '@types/eslint-scope': 3.7.5
-      '@types/estree': 1.0.2
+      '@types/eslint-scope': 3.7.6
+      '@types/estree': 1.0.3
       '@webassemblyjs/ast': 1.11.6
       '@webassemblyjs/wasm-edit': 1.11.6
       '@webassemblyjs/wasm-parser': 1.11.6
-      acorn: 8.10.0
-      acorn-import-assertions: 1.9.0(acorn@8.10.0)
+      acorn: 8.11.2
+      acorn-import-assertions: 1.9.0(acorn@8.11.2)
       browserslist: 4.22.1
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
@@ -6352,7 +6452,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.9(esbuild@0.19.3)(webpack@5.88.2)
+      terser-webpack-plugin: 5.3.9(esbuild@0.19.3)(webpack@5.89.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
@@ -6479,7 +6579,7 @@ packages:
     engines: {node: '>=4.0'}
     dev: true
 
-  /xo@0.56.0(webpack@5.88.2):
+  /xo@0.56.0(webpack@5.89.0):
     resolution: {integrity: sha512-ohzSqgQ8POgZ3KNaEK/gxDovb6h3cglxv8+xi9Dn7gmRe8g4qotpOZpMs5ACJhvkJDmJOhiKbk6Uq6Mx1Di9DA==}
     engines: {node: '>=16'}
     hasBin: true
@@ -6500,7 +6600,7 @@ packages:
       eslint-config-xo: 0.43.1(eslint@8.50.0)
       eslint-config-xo-typescript: 1.0.1(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(eslint@8.50.0)(typescript@5.2.2)
       eslint-formatter-pretty: 5.0.0
-      eslint-import-resolver-webpack: 0.13.7(eslint-plugin-import@2.27.5)(webpack@5.88.2)
+      eslint-import-resolver-webpack: 0.13.7(eslint-plugin-import@2.27.5)(webpack@5.89.0)
       eslint-plugin-ava: 14.0.0(eslint@8.50.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.50.0)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.7.3)(eslint-import-resolver-webpack@0.13.7)(eslint@8.50.0)
@@ -6525,7 +6625,7 @@ packages:
       slash: 5.1.0
       to-absolute-glob: 3.0.0
       typescript: 5.2.2
-      webpack: 5.88.2(esbuild@0.19.3)
+      webpack: 5.89.0(esbuild@0.19.3)
     transitivePeerDependencies:
       - '@types/eslint'
       - eslint-import-resolver-typescript
@@ -6572,50 +6672,4 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
-    dev: true
-
-  file:submodules/budibase/packages/backend-core(undici@5.25.2):
-    resolution: {directory: submodules/budibase/packages/backend-core, type: directory}
-    id: file:submodules/budibase/packages/backend-core
-    name: '@budibase/backend-core'
-    dependencies:
-      '@budibase/nano': 10.1.2(patch_hash=fglyxghcftis6nscvui3hdroxq)(undici@5.25.2)
-      '@budibase/pouchdb-replication-stream': 1.2.10
-      '@budibase/shared-core': 2.10.12
-      '@budibase/types': 2.10.12
-      '@techpass/passport-openidconnect': 0.3.2
-      aws-cloudfront-sign: 2.2.0
-      aws-sdk: 2.1030.0
-      bcrypt: 5.1.0
-      bcryptjs: 2.4.3
-      bull: 4.10.1
-      correlation-id: 4.0.0
-      dotenv: 16.0.1
-      ioredis: 5.3.2
-      joi: 17.6.0
-      jsonwebtoken: 9.0.0
-      koa-passport: 4.1.4
-      koa-pino-logger: 4.0.0
-      lodash: 4.17.21
-      node-fetch: 2.6.7
-      passport-google-oauth: 2.0.0
-      passport-local: 1.0.0
-      passport-oauth2-refresh: 2.2.0
-      pino: 8.11.0
-      pino-http: 8.3.3
-      posthog-node: 1.3.0
-      pouchdb: 7.3.0
-      pouchdb-find: 7.2.2
-      redlock: 4.2.0
-      rotating-file-stream: 3.1.0
-      sanitize-s3-objectkey: 0.0.1
-      semver: 7.3.7
-      tar-fs: 2.1.1
-      uuid: 8.3.2
-    transitivePeerDependencies:
-      - deasync
-      - debug
-      - encoding
-      - supports-color
-      - undici
     dev: true

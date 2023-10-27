@@ -1,4 +1,0 @@
-[submodule "submodules/budibase"]
-	path = submodules/budibase
-	url = https://github.com/Samuel-Martineau/budibase.git
-	branch = allow-plugins-contribute-datasourceplus

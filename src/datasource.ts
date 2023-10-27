@@ -29,10 +29,10 @@ import {
 	type ExternalTable,
 	type QueryJson,
 	type SqlQuery,
-	type Table,
 	type TableSchema,
 	type SearchFilters,
 	EmptyFilterOption,
+	type Schema,
 } from '@budibase/types';
 import { v4 as uuid } from 'uuid';
 import _ from 'lodash';
@@ -44,19 +44,16 @@ import {
 	type RecordArray as XataRecordArray,
 } from '@xata.io/client';
 import mime from 'mime-types';
-import type { Simplify } from 'type-fest';
 import { XataClient } from './xata.js';
 import {
 	buildExternalTableId,
+	checkExternalTables,
 	finaliseExternalTables,
 } from './budibase-server.js';
 import { isXataFileField, xataToBudibaseType } from './utils.js';
 import { logger } from './logger.js';
 
 class XataIntegration implements DatasourcePlus {
-	tables: Record<string, Table> = {};
-	schemaErrors: Record<string, string> = {};
-
 	private readonly client: XataClient;
 	private bindingIdentifierIndex = 1;
 
@@ -110,7 +107,7 @@ class XataIntegration implements DatasourcePlus {
 	async buildSchema(
 		datasourceId: string,
 		entities: Record<string, ExternalTable>,
-	): Promise<void> {
+	): Promise<Schema> {
 		const {
 			schema: { tables: xataTables },
 		} = await this.client.api.branches.getBranchDetails(this.client.config);
@@ -152,6 +149,7 @@ class XataIntegration implements DatasourcePlus {
 						sortable: false,
 					};
 				} else {
+					// @ts-expect-error The type definition doesn't allow this, but this seems to work. Further investigation is needed.
 					schema[column.name] = {
 						name: column.name,
 						type: xataToBudibaseType(column.type),
@@ -184,9 +182,9 @@ class XataIntegration implements DatasourcePlus {
 			};
 		}
 
-		const final = finaliseExternalTables(tables, entities);
-		this.tables = final.tables;
-		this.schemaErrors = final.errors;
+		const externalTables = finaliseExternalTables(tables, entities);
+		const errors = checkExternalTables(tables);
+		return { tables: externalTables, errors };
 	}
 
 	async getTableNames(): Promise<string[]> {
@@ -430,8 +428,8 @@ class XataIntegration implements DatasourcePlus {
 	): Record<string, any> {
 		const { onEmptyFilter, allOr, ...filters } = query.filters ?? {};
 		type SearchFilterKey = keyof typeof filters;
-		type SearchFilterValue<T extends SearchFilterKey> = Simplify<
-			Array<Required<SearchFilters>[T][string]>
+		type SearchFilterValue<T extends SearchFilterKey> = Array<
+			Required<SearchFilters>[T][string]
 		>;
 
 		const joinOperator = allOr ? '$any' : '$all';
