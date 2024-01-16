@@ -27,15 +27,16 @@ await esbuild.build({
 	entryPoints: [path.join(src, 'index.ts')],
 	bundle: true,
 	platform: 'node',
-	loader: {
-		'.html': 'text', // eslint-disable-line @typescript-eslint/naming-convention
-	},
+	minify: true,
 	sourcemap: 'inline',
 	target: 'esnext',
 	treeShaking: true,
 	format: 'cjs',
 	define: {
-		...(process.env.NODE_ENV === 'dev' && { __dirname: JSON.stringify(dist) }),
+		...(process.env.NODE_ENV === 'dev' && {
+			'process.env.LOGGING_SERVER': JSON.stringify(process.env.LOGGING_SERVER),
+			'process.env.LOGGING_API_KEY': JSON.stringify(process.env.LOGGING_API_KEY),
+		}),
 		'process.env.NODE_ENV': JSON.stringify(
 			process.env.NODE_ENV ?? 'production',
 		),

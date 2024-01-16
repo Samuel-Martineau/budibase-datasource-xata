@@ -1,6 +1,6 @@
 {
   "name": "budibase-datasource-xata",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An amazing Budibase datasource!",
   "main": "src/index.ts",
   "private": true,
@@ -25,7 +25,9 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
+    "@datalust/winston-seq": "^2.0.0",
     "@budibase/backend-core": "^2.11.45",
+    "@budibase/cli": "^2.14.7",
     "@types/lodash": "^4.14.199",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^20.6.3",

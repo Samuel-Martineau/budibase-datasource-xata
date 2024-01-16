@@ -2,7 +2,7 @@ import { logger } from './logger.js';
 
 export function inspectedMethod(className: string) {
 	return function (
-		target: Record<string, unknown>,
+		target: any,
 		key: string | symbol,
 		descriptor: PropertyDescriptor,
 	): void {
@@ -12,13 +12,12 @@ export function inspectedMethod(className: string) {
 			const returnValue = original.apply(this, args);
 			if (returnValue instanceof Promise) {
 				return returnValue.then((resolvedReturnValue: unknown) => {
-					logger.info(
-						'%s.%s(%O) => %O',
+					logger.info('{className}.{key}({args}) => {resolvedReturnValue}', {
 						className,
 						key,
 						args,
 						resolvedReturnValue,
-					);
+					});
 					return resolvedReturnValue;
 				});
 			}
@@ -31,7 +30,7 @@ export function inspectedMethod(className: string) {
 
 // from https://stackoverflow.com/a/74898678/12011539
 export function decorateAllMethods(decorator: MethodDecorator) {
-	return (target: () => void): void => {
+	return (target: new (...args: any[]) => any): void => {
 		const descriptors = Object.getOwnPropertyDescriptors(target.prototype);
 		for (const [propName, descriptor] of Object.entries(descriptors)) {
 			const isMethod =

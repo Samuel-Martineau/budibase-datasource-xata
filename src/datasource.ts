@@ -52,7 +52,9 @@ import {
 } from './budibase-server.js';
 import { isXataFileField, xataToBudibaseType } from './utils.js';
 import { logger } from './logger.js';
+// import { decorateAllMethods, inspectedMethod } from './debug.js';
 
+// @decorateAllMethods(inspectedMethod('XataIntegration'))
 class XataIntegration implements DatasourcePlus {
 	private readonly client: XataClient;
 	private bindingIdentifierIndex = 1;
@@ -67,6 +69,12 @@ class XataIntegration implements DatasourcePlus {
 		apiKey: string;
 	}) {
 		this.client = new XataClient(databaseUrl, branch, apiKey);
+	}
+
+	defineTypeCastingFromSchema?(
+		_schema: Record<string, { name: string; type: string }>,
+	): void {
+		throw new Error('Method not implemented.');
 	}
 
 	getBindingIdentifier(): string {
@@ -176,8 +184,9 @@ class XataIntegration implements DatasourcePlus {
 			tables[table.name] = {
 				primary: ['id'],
 				name: table.name,
-				sourceId: 'datasourceId',
+				sourceId: datasourceId,
 				_id: buildExternalTableId(datasourceId, table.name),
+				primaryDisplay: 'id',
 				schema,
 			};
 		}
@@ -194,7 +203,7 @@ class XataIntegration implements DatasourcePlus {
 		return tables.map((t) => t.name);
 	}
 
-	async query(query: QueryJson): Promise<unknown[]> {
+	async query(query: QueryJson): Promise<unknown[] | undefined> {
 		const table = this.client.db[query.endpoint.entityId];
 		if (!table)
 			throw new Error(`Table "${query.endpoint.entityId}" does not exist`);
@@ -264,7 +273,26 @@ class XataIntegration implements DatasourcePlus {
 				return [{ deleted: true }];
 			}
 
+			case Operation.UPDATE_TABLE: {
+				const newTable = query.table ?? {};
+				const oldTable = query.meta?.table ?? {};
+				const changes = _.differenceWith(
+					_.toPairs(newTable),
+					_.toPairs(oldTable),
+					_.isEqual,
+				).filter((keyValue) => !_.isEqual(keyValue, ['views', {}]));
+				if (changes.length === 1 && changes[0]?.[0] === 'primaryDisplay')
+					return;
+				throw new Error(
+					`Operation type "${query.endpoint.operation}" is not supported`,
+				);
+			}
+
 			default: {
+				logger.warn(
+					`Operation type "${query.endpoint.operation}" is not supported`,
+					query,
+				);
 				throw new Error(
 					`Operation type "${query.endpoint.operation}" is not supported`,
 				);
@@ -354,6 +382,7 @@ class XataIntegration implements DatasourcePlus {
 		outer: for (const field of queryFields) {
 			const { table, column } =
 				/^(?<table>\w+).(?<column>\$?\w+)$/.exec(field)?.groups ?? {};
+
 			if (!table || !column) {
 				throw new Error(`Invalid field: "${field}"`);
 			}
@@ -386,7 +415,7 @@ class XataIntegration implements DatasourcePlus {
 					}
 
 					fieldsMapping[field] = `${relationship.column}.${column}`;
-				} else {
+				} else if (!column.startsWith('$')) {
 					fields.push(
 						(fieldsMapping[field] = `${relationship.column}.${column}`),
 					);

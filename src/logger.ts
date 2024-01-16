@@ -19,8 +19,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import path from 'node:path';
 import winston from 'winston';
+import { SeqTransport } from '@datalust/winston-seq';
 
 export const logger = winston.createLogger({
 	level: 'info',
@@ -30,9 +30,14 @@ export const logger = winston.createLogger({
 	),
 	transports: [
 		process.env.NODE_ENV === 'dev'
-			? new winston.transports.File({
-					filename: 'logs.log',
-					dirname: path.join(__dirname, '../'),
+			? new SeqTransport({
+					serverUrl: process.env.LOGGING_SERVER,
+					apiKey: process.env.LOGGING_API_KEY,
+					onError(error): void {
+						console.error(error);
+					},
+					handleExceptions: true,
+					handleRejections: true,
 			  })
 			: new winston.transports.Console(),
 	],
